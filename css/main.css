@@ -28,11 +28,11 @@
 /* Body styles */
 body {
   padding-bottom: 0;
-  background: 
-    radial-gradient(circle at 20% 50%, rgba(114, 46, 209, 0.3) 0%, transparent 50%),
-    radial-gradient(circle at 80% 20%, rgba(19, 194, 194, 0.2) 0%, transparent 50%),
-    radial-gradient(circle at 40% 80%, rgba(250, 173, 20, 0.2) 0%, transparent 50%),
-    #0c0c0c;
+  background-image: url('https://wallpaperaccess.com/full/528833.jpg');
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
   color: var(--apex-text);
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   transition: all 0.3s ease;
@@ -40,6 +40,19 @@ body {
   overflow-x: hidden;
   font-size: 18px;
   line-height: 1.6;
+}
+
+/* Semi-transparent black overlay on background image */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 0;
+  pointer-events: none;
 }
 
 /* Global font size increases */
@@ -63,19 +76,7 @@ p, span, a, button, input, select, textarea {
   font-size: 1.1rem;
 }
 
-/* Glassmorphism effect for main container */
-body::before {
-  content: '';
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  backdrop-filter: blur(var(--glass-blur));
-  -webkit-backdrop-filter: blur(var(--glass-blur));
-  z-index: -1;
-  pointer-events: none;
-}
+/* Removed glassmorphism effect to make background pattern visible */
 
 /* Sticker style for all elements */
 * {
@@ -91,9 +92,7 @@ body::before {
 
 .card, .alert, .dropdown-menu, .accordion-item, .modal-content {
   border: var(--sticker-stroke-width) solid var(--sticker-stroke) !important;
-  box-shadow: 
-    var(--sticker-stroke-width) var(--sticker-stroke-width) 0 var(--sticker-stroke),
-    0 0 20px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
   border-radius: var(--sticker-border-radius) !important;
   background: rgba(26, 26, 26, 0.95) !important;
 }
@@ -101,10 +100,10 @@ body::before {
 /* Special styling for navbar */
 .navbar {
   border-bottom: var(--sticker-stroke-width) solid var(--sticker-stroke) !important;
-  box-shadow: 
-    0 var(--sticker-stroke-width) 0 var(--sticker-stroke),
-    0 4px 20px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
   background: rgba(12, 12, 12, 0.98) !important;
+  z-index: 1000 !important;
+  position: relative;
 }
 
 /* Large title style */
@@ -119,12 +118,20 @@ body::before {
   padding: 0.5rem 0 !important;
 }
 
-/* Button sticker style */
+/* Language menu specific styles */
+#langMenuButton {
+  position: relative;
+  z-index: 1001 !important;
+}
+
+#availLangs {
+  z-index: 1002 !important;
+}
+
+/* Button sticker style with glassmorphism */
 .btn {
   border: var(--sticker-stroke-width) solid var(--sticker-stroke) !important;
-  box-shadow: 
-    var(--sticker-stroke-width) var(--sticker-stroke-width) 0 var(--sticker-stroke),
-    0 2px 10px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
   border-radius: var(--sticker-border-radius) !important;
   position: relative;
   transition: all 0.2s ease;
@@ -132,16 +139,19 @@ body::before {
   text-transform: uppercase;
   letter-spacing: 0.5px;
   padding: 0.8rem 2rem !important;
+  background: rgba(26, 26, 26, 0.4) !important;
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
 }
 
 .btn:hover {
   transform: translate(var(--sticker-stroke-width), var(--sticker-stroke-width));
-  box-shadow: 0 0 0 var(--sticker-stroke);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
 }
 
 .btn:active {
   transform: translate(var(--sticker-stroke-width), var(--sticker-stroke-width));
-  box-shadow: 0 0 0 var(--sticker-stroke);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
   opacity: 0.8;
 }
 
@@ -149,9 +159,7 @@ body::before {
 .form-control, input[id^="finetune"] {
   border: var(--sticker-stroke-width) solid var(--sticker-stroke) !important;
   border-radius: var(--sticker-border-radius) !important;
-  box-shadow: 
-    var(--sticker-stroke-width) var(--sticker-stroke-width) 0 var(--sticker-stroke),
-    inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
   transition: all 0.2s ease !important;
   background: rgba(45, 45, 45, 0.95) !important;
   font-size: 1.2rem !important;
@@ -160,9 +168,7 @@ body::before {
 
 .form-control:focus, input[id^="finetune"]:focus {
   transform: translate(var(--sticker-stroke-width), var(--sticker-stroke-width));
-  box-shadow: 
-    0 0 0 var(--sticker-stroke),
-    0 0 0 0.25rem var(--apex-glow) !important;
+  box-shadow: 0 0 0 0.25rem var(--apex-glow) !important;
   border-color: var(--apex-accent) !important;
 }
 
@@ -171,9 +177,7 @@ body::before {
   border: var(--sticker-stroke-width) solid var(--sticker-stroke) !important;
   border-radius: var(--sticker-border-radius) var(--sticker-border-radius) 0 0 !important;
   background: var(--apex-light-gray) !important;
-  box-shadow: 
-    var(--sticker-stroke-width) var(--sticker-stroke-width) 0 var(--sticker-stroke),
-    0 2px 8px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
   transition: all 0.2s ease !important;
   margin-right: 12px !important;
   font-weight: 600;
@@ -181,15 +185,13 @@ body::before {
 }
 
 .nav-tabs .nav-link:hover {
-  transform: translate(var(--sticker-stroke-width), var(--sticker-stroke-width));
-  box-shadow: 0 0 0 var(--sticker-stroke);
+  transform: translateY(var(--sticker-stroke-width));
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
 }
 
 .nav-tabs .nav-link.active {
-  transform: translate(0, var(--sticker-stroke-width));
-  box-shadow: 
-    var(--sticker-stroke-width) 0 0 var(--sticker-stroke),
-    var(--sticker-stroke-width) var(--sticker-stroke-width) 0 var(--sticker-stroke);
+  transform: translateY(var(--sticker-stroke-width));
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
   border-bottom-color: transparent !important;
   background: var(--apex-gray) !important;
 }
@@ -200,11 +202,9 @@ body::before {
 }
 
 .accordion-button {
-  border: var(--sticker-stroke-width) solid var(--sticker-stroke) !important;
+  border: none !important;
   border-radius: var(--sticker-border-radius) !important;
-  box-shadow: 
-    var(--sticker-stroke-width) var(--sticker-stroke-width) 0 var(--sticker-stroke),
-    0 2px 8px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
   transition: all 0.2s ease !important;
   background: var(--apex-light-gray) !important;
   font-weight: 600;
@@ -214,15 +214,13 @@ body::before {
 }
 
 .accordion-button:hover {
-  transform: translate(var(--sticker-stroke-width), var(--sticker-stroke-width));
-  box-shadow: 0 0 0 var(--sticker-stroke);
+  transform: translateY(var(--sticker-stroke-width));
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
 }
 
 .accordion-button:not(.collapsed) {
-  transform: translate(0, 0);
-  box-shadow: 
-    var(--sticker-stroke-width) var(--sticker-stroke-width) 0 var(--sticker-stroke),
-    0 2px 8px rgba(0, 0, 0, 0.3);
+  transform: translateY(0);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
   background: var(--apex-gray) !important;
   border-bottom-left-radius: 0 !important;
   border-bottom-right-radius: 0 !important;
@@ -231,8 +229,7 @@ body::before {
 /* Badge sticker style */
 .badge {
   border: var(--sticker-stroke-width) solid var(--sticker-stroke) !important;
-  box-shadow: 
-    var(--sticker-stroke-width) var(--sticker-stroke-width) 0 var(--sticker-stroke);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
   border-radius: var(--sticker-border-radius) !important;
   font-weight: 700;
   padding: 0.6em 1.2em !important;
@@ -244,9 +241,7 @@ body::before {
 .progress {
   border: var(--sticker-stroke-width) solid var(--sticker-stroke) !important;
   border-radius: var(--sticker-border-radius) !important;
-  box-shadow: 
-    var(--sticker-stroke-width) var(--sticker-stroke-width) 0 var(--sticker-stroke),
-    inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
   background: var(--apex-light-gray) !important;
   height: 20px !important;
   overflow: visible !important;
@@ -277,10 +272,8 @@ body::before {
 /* Modal sticker style */
 .modal-content {
   border: var(--sticker-stroke-width) solid var(--sticker-stroke) !important;
-  border-radius: 12px !important;
-  box-shadow: 
-    var(--sticker-stroke-width) var(--sticker-stroke-width) 0 var(--sticker-stroke),
-    0 0 40px rgba(0, 0, 0, 0.5);
+  border-radius: var(--sticker-border-radius) !important;
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.5);
   background: var(--apex-gray) !important;
   backdrop-filter: blur(var(--glass-blur));
   -webkit-backdrop-filter: blur(var(--glass-blur));
@@ -289,13 +282,13 @@ body::before {
 .modal-header {
   border-bottom: var(--sticker-stroke-width) solid var(--sticker-stroke) !important;
   background: var(--apex-light-gray) !important;
-  border-radius: 12px 12px 0 0 !important;
+  border-radius: calc(var(--sticker-border-radius) - var(--sticker-stroke-width)) calc(var(--sticker-border-radius) - var(--sticker-stroke-width)) 0 0 !important;
 }
 
 .modal-footer {
   border-top: var(--sticker-stroke-width) solid var(--sticker-stroke) !important;
   background: var(--apex-light-gray) !important;
-  border-radius: 0 0 12px 12px !important;
+  border-radius: 0 0 calc(var(--sticker-border-radius) - var(--sticker-stroke-width)) calc(var(--sticker-border-radius) - var(--sticker-stroke-width)) !important;
 }
 
 /* Custom scrollbar with sticker style */
@@ -319,15 +312,13 @@ body::before {
 #aboutdrift .container > div {
   border: var(--sticker-stroke-width) solid var(--sticker-stroke) !important;
   border-radius: var(--sticker-border-radius) !important;
-  background: rgba(26, 26, 26, 0.95) !important;
+  background: rgba(26, 26, 26, 0.6) !important;
   color: var(--apex-text) !important;
-  box-shadow: 
-    var(--sticker-stroke-width) var(--sticker-stroke-width) 0 var(--sticker-stroke),
-    0 0 20px rgba(114, 46, 209, 0.3) !important;
+  box-shadow: none !important;
   padding: 20px !important;
   font-size: 1.1rem !important;
   position: relative;
-  z-index: 1;
+  z-index: 500;
 }
 
 #aboutdrift .container > div i {
@@ -637,7 +628,8 @@ h1, h2, h3, h4, h5, h6 {
   background-color: var(--apex-gray);
   border: 1px solid var(--apex-border);
   border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  z-index: 1000 !important;
 }
 
 .dropdown-item {
