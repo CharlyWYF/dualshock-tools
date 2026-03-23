@@ -1,8 +1,716 @@
 /* Main styles for DualShock Calibration GUI */
+/* Apex Legends inspired dark theme */
 
-/* Add padding to body to prevent content from being hidden behind fixed footer */
+:root {
+  /* Apex Legends color palette */
+  --apex-dark: rgba(12, 12, 12, 0.85);
+  --apex-darker: rgba(6, 6, 6, 0.9);
+  --apex-gray: rgba(26, 26, 26, 0.9);
+  --apex-light-gray: rgba(45, 45, 45, 0.9);
+  --apex-accent: #722ed1; /* Apex purple */
+  --apex-accent-hover: #9254de;
+  --apex-secondary: #13c2c2; /* Apex teal */
+  --apex-tertiary: #fa8c16; /* Apex orange */
+  --apex-success: #52c41a;
+  --apex-danger: #f5222d;
+  --apex-warning: #faad14;
+  --apex-text: #ffffff;
+  --apex-text-muted: #8c8c8c;
+  --apex-border: #333333;
+  --apex-glow: rgba(114, 46, 209, 0.3);
+  --sticker-stroke: #ffffff;
+  --sticker-stroke-width: 16px;
+  --sticker-border-radius: 32px;
+  --glass-blur: 10px;
+  --glass-opacity: 0.9;
+}
+
+/* Body styles */
 body {
-  padding-bottom: 80px;
+  padding-bottom: 0;
+  background: 
+    radial-gradient(circle at 20% 50%, rgba(114, 46, 209, 0.3) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(19, 194, 194, 0.2) 0%, transparent 50%),
+    radial-gradient(circle at 40% 80%, rgba(250, 173, 20, 0.2) 0%, transparent 50%),
+    #0c0c0c;
+  color: var(--apex-text);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow-x: hidden;
+  font-size: 18px;
+  line-height: 1.6;
+}
+
+/* Global font size increases */
+h1 {
+  font-size: 3rem;
+}
+
+h2 {
+  font-size: 2.5rem;
+}
+
+h3 {
+  font-size: 2rem;
+}
+
+h4 {
+  font-size: 1.5rem;
+}
+
+p, span, a, button, input, select, textarea {
+  font-size: 1.1rem;
+}
+
+/* Glassmorphism effect for main container */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* Sticker style for all elements */
+* {
+  box-sizing: border-box;
+  outline: none !important;
+}
+
+/* Add thick stroke to main containers */
+.container, .navbar, .card, .alert, .dropdown-menu, .accordion, .accordion-item {
+  position: relative;
+  z-index: 1;
+}
+
+.card, .alert, .dropdown-menu, .accordion-item, .modal-content {
+  border: var(--sticker-stroke-width) solid var(--sticker-stroke) !important;
+  box-shadow: 
+    var(--sticker-stroke-width) var(--sticker-stroke-width) 0 var(--sticker-stroke),
+    0 0 20px rgba(0, 0, 0, 0.5);
+  border-radius: var(--sticker-border-radius) !important;
+  background: rgba(26, 26, 26, 0.95) !important;
+}
+
+/* Special styling for navbar */
+.navbar {
+  border-bottom: var(--sticker-stroke-width) solid var(--sticker-stroke) !important;
+  box-shadow: 
+    0 var(--sticker-stroke-width) 0 var(--sticker-stroke),
+    0 4px 20px rgba(0, 0, 0, 0.5);
+  background: rgba(12, 12, 12, 0.98) !important;
+}
+
+/* Large title style */
+.navbar-brand {
+  font-size: 2.5rem !important;
+  font-weight: 900 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 2px !important;
+  color: var(--apex-text) !important;
+  white-space: nowrap !important;
+  display: inline-block !important;
+  padding: 0.5rem 0 !important;
+}
+
+/* Button sticker style */
+.btn {
+  border: var(--sticker-stroke-width) solid var(--sticker-stroke) !important;
+  box-shadow: 
+    var(--sticker-stroke-width) var(--sticker-stroke-width) 0 var(--sticker-stroke),
+    0 2px 10px rgba(0, 0, 0, 0.3);
+  border-radius: var(--sticker-border-radius) !important;
+  position: relative;
+  transition: all 0.2s ease;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 0.8rem 2rem !important;
+}
+
+.btn:hover {
+  transform: translate(var(--sticker-stroke-width), var(--sticker-stroke-width));
+  box-shadow: 0 0 0 var(--sticker-stroke);
+}
+
+.btn:active {
+  transform: translate(var(--sticker-stroke-width), var(--sticker-stroke-width));
+  box-shadow: 0 0 0 var(--sticker-stroke);
+  opacity: 0.8;
+}
+
+/* Form control sticker style */
+.form-control, input[id^="finetune"] {
+  border: var(--sticker-stroke-width) solid var(--sticker-stroke) !important;
+  border-radius: var(--sticker-border-radius) !important;
+  box-shadow: 
+    var(--sticker-stroke-width) var(--sticker-stroke-width) 0 var(--sticker-stroke),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+  transition: all 0.2s ease !important;
+  background: rgba(45, 45, 45, 0.95) !important;
+  font-size: 1.2rem !important;
+  padding: 0.8rem 1rem !important;
+}
+
+.form-control:focus, input[id^="finetune"]:focus {
+  transform: translate(var(--sticker-stroke-width), var(--sticker-stroke-width));
+  box-shadow: 
+    0 0 0 var(--sticker-stroke),
+    0 0 0 0.25rem var(--apex-glow) !important;
+  border-color: var(--apex-accent) !important;
+}
+
+/* Tab style with sticker effect */
+.nav-tabs .nav-link {
+  border: var(--sticker-stroke-width) solid var(--sticker-stroke) !important;
+  border-radius: var(--sticker-border-radius) var(--sticker-border-radius) 0 0 !important;
+  background: var(--apex-light-gray) !important;
+  box-shadow: 
+    var(--sticker-stroke-width) var(--sticker-stroke-width) 0 var(--sticker-stroke),
+    0 2px 8px rgba(0, 0, 0, 0.3);
+  transition: all 0.2s ease !important;
+  margin-right: 12px !important;
+  font-weight: 600;
+  padding: 1rem 2rem !important;
+}
+
+.nav-tabs .nav-link:hover {
+  transform: translate(var(--sticker-stroke-width), var(--sticker-stroke-width));
+  box-shadow: 0 0 0 var(--sticker-stroke);
+}
+
+.nav-tabs .nav-link.active {
+  transform: translate(0, var(--sticker-stroke-width));
+  box-shadow: 
+    var(--sticker-stroke-width) 0 0 var(--sticker-stroke),
+    var(--sticker-stroke-width) var(--sticker-stroke-width) 0 var(--sticker-stroke);
+  border-bottom-color: transparent !important;
+  background: var(--apex-gray) !important;
+}
+
+/* Accordion sticker style */
+.accordion-item {
+  margin-bottom: 16px !important;
+}
+
+.accordion-button {
+  border: var(--sticker-stroke-width) solid var(--sticker-stroke) !important;
+  border-radius: var(--sticker-border-radius) !important;
+  box-shadow: 
+    var(--sticker-stroke-width) var(--sticker-stroke-width) 0 var(--sticker-stroke),
+    0 2px 8px rgba(0, 0, 0, 0.3);
+  transition: all 0.2s ease !important;
+  background: var(--apex-light-gray) !important;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 1rem 1.5rem !important;
+}
+
+.accordion-button:hover {
+  transform: translate(var(--sticker-stroke-width), var(--sticker-stroke-width));
+  box-shadow: 0 0 0 var(--sticker-stroke);
+}
+
+.accordion-button:not(.collapsed) {
+  transform: translate(0, 0);
+  box-shadow: 
+    var(--sticker-stroke-width) var(--sticker-stroke-width) 0 var(--sticker-stroke),
+    0 2px 8px rgba(0, 0, 0, 0.3);
+  background: var(--apex-gray) !important;
+  border-bottom-left-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+}
+
+/* Badge sticker style */
+.badge {
+  border: var(--sticker-stroke-width) solid var(--sticker-stroke) !important;
+  box-shadow: 
+    var(--sticker-stroke-width) var(--sticker-stroke-width) 0 var(--sticker-stroke);
+  border-radius: var(--sticker-border-radius) !important;
+  font-weight: 700;
+  padding: 0.6em 1.2em !important;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Progress bar with sticker style */
+.progress {
+  border: var(--sticker-stroke-width) solid var(--sticker-stroke) !important;
+  border-radius: var(--sticker-border-radius) !important;
+  box-shadow: 
+    var(--sticker-stroke-width) var(--sticker-stroke-width) 0 var(--sticker-stroke),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+  background: var(--apex-light-gray) !important;
+  height: 20px !important;
+  overflow: visible !important;
+}
+
+.progress-bar {
+  border-radius: calc(var(--sticker-border-radius) - var(--sticker-stroke-width)) !important;
+  position: relative;
+  overflow: hidden;
+}
+
+.progress-bar::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+/* Modal sticker style */
+.modal-content {
+  border: var(--sticker-stroke-width) solid var(--sticker-stroke) !important;
+  border-radius: 12px !important;
+  box-shadow: 
+    var(--sticker-stroke-width) var(--sticker-stroke-width) 0 var(--sticker-stroke),
+    0 0 40px rgba(0, 0, 0, 0.5);
+  background: var(--apex-gray) !important;
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+}
+
+.modal-header {
+  border-bottom: var(--sticker-stroke-width) solid var(--sticker-stroke) !important;
+  background: var(--apex-light-gray) !important;
+  border-radius: 12px 12px 0 0 !important;
+}
+
+.modal-footer {
+  border-top: var(--sticker-stroke-width) solid var(--sticker-stroke) !important;
+  background: var(--apex-light-gray) !important;
+  border-radius: 0 0 12px 12px !important;
+}
+
+/* Custom scrollbar with sticker style */
+::-webkit-scrollbar-track {
+  background: var(--apex-darker);
+  border: var(--sticker-stroke-width) solid var(--sticker-stroke);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--apex-accent);
+  border: var(--sticker-stroke-width) solid var(--sticker-stroke);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--apex-accent-hover);
+  transform: translateX(var(--sticker-stroke-width)) translateY(var(--sticker-stroke-width));
+}
+
+/* About drift component style */
+#aboutdrift .container > div {
+  border: var(--sticker-stroke-width) solid var(--sticker-stroke) !important;
+  border-radius: var(--sticker-border-radius) !important;
+  background: rgba(26, 26, 26, 0.95) !important;
+  color: var(--apex-text) !important;
+  box-shadow: 
+    var(--sticker-stroke-width) var(--sticker-stroke-width) 0 var(--sticker-stroke),
+    0 0 20px rgba(114, 46, 209, 0.3) !important;
+  padding: 20px !important;
+  font-size: 1.1rem !important;
+  position: relative;
+  z-index: 1;
+}
+
+#aboutdrift .container > div i {
+  font-size: 1.2rem !important;
+  margin-right: 10px !important;
+}
+
+#aboutdrift .container > div p {
+  margin-bottom: 1rem !important;
+  line-height: 1.6 !important;
+}
+
+#aboutdrift .container > div p:last-child {
+  margin-bottom: 0 !important;
+}
+
+/* Custom icon colors */
+#aboutdrift .container > div i.fas.fa-hand-point-up {
+  color: var(--apex-accent) !important;
+}
+
+#aboutdrift .container > div i.fas.fa-regular.fa-triangle-exclamation {
+  color: var(--apex-warning) !important;
+}
+
+/* Global styles */
+h1, h2, h3, h4, h5, h6 {
+  color: var(--apex-text);
+  font-weight: 600;
+}
+
+/* Override Bootstrap styles */
+.card {
+  background-color: var(--apex-gray);
+  border: 1px solid var(--apex-border);
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+  transform: translateY(-2px);
+}
+
+.card-header {
+  background-color: var(--apex-light-gray);
+  border-bottom: 1px solid var(--apex-border);
+  color: var(--apex-text);
+  font-weight: 600;
+  border-radius: 8px 8px 0 0 !important;
+}
+
+.card-body {
+  background-color: var(--apex-gray);
+}
+
+/* Button styles */
+.btn {
+  border-radius: 6px;
+  font-weight: 600;
+  padding: 0.6rem 1.2rem;
+  transition: all 0.3s ease;
+  border: none;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.btn-primary {
+  background-color: var(--apex-accent);
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: var(--apex-accent-hover);
+  box-shadow: 0 4px 12px var(--apex-glow);
+  transform: translateY(-1px);
+}
+
+.btn-secondary {
+  background-color: var(--apex-light-gray);
+  color: var(--apex-text);
+  border: 1px solid var(--apex-border);
+}
+
+.btn-secondary:hover {
+  background-color: var(--apex-gray);
+  border-color: var(--apex-accent);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.btn-success {
+  background-color: var(--apex-success);
+  color: white;
+}
+
+.btn-success:hover {
+  background-color: #73d13d;
+  box-shadow: 0 4px 12px rgba(82, 196, 26, 0.3);
+}
+
+.btn-danger {
+  background-color: var(--apex-danger);
+  color: white;
+}
+
+.btn-danger:hover {
+  background-color: #ff4d4f;
+  box-shadow: 0 4px 12px rgba(245, 34, 45, 0.3);
+}
+
+/* Navbar styles */
+.navbar {
+  background-color: var(--apex-dark) !important;
+  border-bottom: 1px solid var(--apex-border);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.navbar-brand {
+  color: var(--apex-text) !important;
+  font-weight: 700;
+  font-size: 1.25rem;
+}
+
+.nav-link {
+  color: var(--apex-text-muted) !important;
+  transition: all 0.3s ease;
+  font-weight: 500;
+}
+
+.nav-link:hover {
+  color: var(--apex-accent) !important;
+}
+
+/* Tab styles */
+.nav-tabs {
+  border-bottom: 1px solid var(--apex-border);
+}
+
+.nav-tabs .nav-link {
+  color: var(--apex-text-muted);
+  border: none;
+  background-color: transparent;
+  border-radius: 6px 6px 0 0;
+  margin-right: 0.5rem;
+  padding: 0.75rem 1.25rem;
+}
+
+.nav-tabs .nav-link:hover {
+  color: var(--apex-accent);
+  background-color: var(--apex-light-gray);
+  border-color: var(--apex-border) var(--apex-border) transparent;
+}
+
+.nav-tabs .nav-link.active {
+  color: var(--apex-text);
+  background-color: var(--apex-gray);
+  border: 1px solid var(--apex-border);
+  border-bottom-color: transparent;
+  font-weight: 600;
+}
+
+/* Form styles */
+.form-control {
+  background-color: var(--apex-light-gray);
+  color: var(--apex-text);
+  border: 1px solid var(--apex-border);
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+
+.form-control:focus {
+  background-color: var(--apex-gray);
+  color: var(--apex-text);
+  border-color: var(--apex-accent);
+  box-shadow: 0 0 0 0.25rem var(--apex-glow);
+}
+
+/* Accordion styles */
+.accordion {
+  --bs-accordion-color: var(--apex-text);
+  --bs-accordion-bg: var(--apex-gray);
+  --bs-accordion-border-color: var(--apex-border);
+  --bs-accordion-border-radius: 8px;
+  --bs-accordion-inner-border-radius: 7px;
+  --bs-accordion-btn-color: var(--apex-text);
+  --bs-accordion-btn-bg: var(--apex-light-gray);
+  --bs-accordion-btn-icon: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23ffffff'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+  --bs-accordion-btn-active-icon: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23ffffff'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+}
+
+.accordion-item {
+  background-color: var(--apex-gray);
+  border: 1px solid var(--apex-border);
+  border-radius: 8px !important;
+  margin-bottom: 0.75rem;
+  overflow: hidden;
+}
+
+.accordion-header {
+  background-color: var(--apex-light-gray);
+}
+
+.accordion-button {
+  background-color: var(--apex-light-gray) !important;
+  color: var(--apex-text) !important;
+  border: none;
+  border-radius: 8px !important;
+}
+
+.accordion-button:not(.collapsed) {
+  background-color: var(--apex-gray) !important;
+  box-shadow: none;
+}
+
+.accordion-body {
+  background-color: var(--apex-gray);
+  border-top: 1px solid var(--apex-border);
+}
+
+/* Progress bar styles */
+.progress {
+  background-color: var(--apex-light-gray);
+  border-radius: 6px;
+  height: 8px;
+  overflow: hidden;
+}
+
+.progress-bar {
+  background-color: var(--apex-accent);
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+
+.progress-bar.progress-bar-success {
+  background-color: var(--apex-success);
+}
+
+.progress-bar.progress-bar-warning {
+  background-color: var(--apex-warning);
+}
+
+.progress-bar.progress-bar-danger {
+  background-color: var(--apex-danger);
+}
+
+/* Alert styles */
+.alert {
+  background-color: var(--apex-light-gray);
+  color: var(--apex-text);
+  border: 1px solid var(--apex-border);
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.alert-primary {
+  background-color: rgba(114, 46, 209, 0.1);
+  color: var(--apex-accent);
+  border-color: var(--apex-accent);
+}
+
+.alert-success {
+  background-color: rgba(82, 196, 26, 0.1);
+  color: var(--apex-success);
+  border-color: var(--apex-success);
+}
+
+.alert-danger {
+  background-color: rgba(245, 34, 45, 0.1);
+  color: var(--apex-danger);
+  border-color: var(--apex-danger);
+}
+
+.alert-warning {
+  background-color: rgba(250, 173, 20, 0.1);
+  color: var(--apex-warning);
+  border-color: var(--apex-warning);
+}
+
+/* Background styles */
+.bg-body-tertiary {
+  background-color: var(--apex-dark) !important;
+}
+
+/* Text styles */
+.text-muted {
+  color: var(--apex-text-muted) !important;
+}
+
+.text-primary {
+  color: var(--apex-accent) !important;
+}
+
+.text-success {
+  color: var(--apex-success) !important;
+}
+
+.text-danger {
+  color: var(--apex-danger) !important;
+}
+
+.text-warning {
+  color: var(--apex-warning) !important;
+}
+
+/* Dropdown styles */
+.dropdown-menu {
+  background-color: var(--apex-gray);
+  border: 1px solid var(--apex-border);
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+.dropdown-item {
+  color: var(--apex-text);
+  transition: all 0.3s ease;
+}
+
+.dropdown-item:hover {
+  background-color: var(--apex-light-gray);
+  color: var(--apex-accent);
+}
+
+.dropdown-item.active, .dropdown-item:active {
+  background-color: var(--apex-accent);
+  color: white;
+}
+
+/* Badge styles */
+.badge {
+  border-radius: 6px;
+  font-weight: 600;
+  padding: 0.35em 0.65em;
+}
+
+.badge-primary {
+  background-color: var(--apex-accent);
+}
+
+.badge-secondary {
+  background-color: var(--apex-light-gray);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--apex-darker);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--apex-light-gray);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--apex-gray);
+}
+
+/* Selection styles */
+::selection {
+  background-color: var(--apex-accent);
+  color: white;
+}
+
+::-moz-selection {
+  background-color: var(--apex-accent);
+  color: white;
+}
+
+/* Loading spinner styles */
+.spinner-border {
+  color: var(--apex-accent);
+}
+
+/* Body styles */
+body {
+  padding-bottom: 0;
+  background-color: var(--apex-dark);
+  color: var(--apex-text);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 dl.row dt {

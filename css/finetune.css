@@ -12,10 +12,21 @@
 
 /* Styling for finetune input boxes - base state to prevent layout shift */
 input[id^="finetune"] {
-  border: 1px solid transparent !important;
+  border: 1px solid var(--apex-border) !important;
   width: 90px !important;
   min-width: 90px !important;
-  color: #969696 !important;
+  color: var(--apex-text-muted) !important;
+  background-color: var(--apex-light-gray) !important;
+  border-radius: 4px !important;
+  transition: all 0.3s ease !important;
+}
+
+input[id^="finetune"]:focus {
+  border-color: var(--apex-accent) !important;
+  color: var(--apex-text) !important;
+  background-color: var(--apex-gray) !important;
+  box-shadow: 0 0 0 0.25rem var(--apex-glow) !important;
+  outline: none !important;
 }
 
 /* Styling for highlighted coordinate labels */
@@ -23,8 +34,8 @@ input[id^="finetune"] {
 #finetuneStickCanvasLy-lbl.text-primary,
 #finetuneStickCanvasRx-lbl.text-primary,
 #finetuneStickCanvasRy-lbl.text-primary {
-  color: #0d6efd !important;
-  background-color: rgba(13, 110, 253, 0.1) !important;
+  color: var(--apex-accent) !important;
+  background-color: rgba(114, 46, 209, 0.1) !important;
 }
 
 /* CSS Grid layout for finetune inputs around canvas */

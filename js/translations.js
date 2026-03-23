@@ -64,6 +64,14 @@ export function lang_init(appState, handleLanguageChangeCb, welcomeModalCb) {
       lang_translate(ljson["file"], nlang, ljson["direction"]).catch(error => {
         console.error("Failed to load initial language:", error);
       });
+    } else {
+      // Set default language to Chinese if browser language is not supported
+      const defaultLang = "zh_cn";
+      const defaultLangJson = available_langs[defaultLang];
+      la("lang_init", {"l": defaultLang, "reason": "default"});
+      lang_translate(defaultLangJson["file"], defaultLang, defaultLangJson["direction"]).catch(error => {
+        console.error("Failed to load default Chinese language:", error);
+      });
     }
   }
   
